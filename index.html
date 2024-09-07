@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Intra- and Inter-modal Context Interaction Modeling for Conversational Speech Synthesis</title>
+		<link type="text/css" href="./css/basic.css" rel="stylesheet">
+		<link type="text/css" href="./css/index.css" rel="stylesheet">
+		<link type="text/css" href="./css/bootstrap.min.css" rel="stylesheet">
+		<script type='text/javascript' src="./js/jquery-3.3.1.min.js"></script>
+		<script type='text/javascript' src="./js/index.js"></script>
+	</head>
+	<body>
+		
+		<div class="main">
+			<div class="title">
+				<img class="top-img" src="img/background.png" />
+				<span>Intra- and Inter-modal Context Interaction Modeling for Conversational Speech Synthesis</span>
+			</div>
+			<div class="content">
+				<div class="section author">
+				</div>
+				<div class="section">
+					<div class="section-title">ABSTRACT</div>
+					<div class="section-content abstract">
+						Conversational Speech Synthesis (CSS) aims to effectively use dialogue history to infer and generate speech with appropriate conversational prosody. Multimodal dialogue history (MDH) includes text and audio modalities. Previous CSS work typically models the entire MDH implicitly to obtain conversational prosody. However, modeling the intra-modal and inter-modal interactions in MDH can more effectively capture subtle semantic and prosodic variations, enabling more accurate inference of the target utterance's conversational prosody. Previous work ignores this point. Therefore, we propose a novel Intra-modal and Inter-modal Context Interaction Modeling CSS model, termed I³-CSS, which includes: 1) Intra-Modal and Inter-Modal Interaction Modules: Using a contrastive learning-based interaction enhancement method to model intra-modal and inter-modal interactions within MDH to infer the semantic and prosodic of the target utterance. 2) Speech Synthesizer: Integrates the inferred semantics and prosody to generate speech with appropriate conversational prosody. Experiments show that I³-CSS can synthesize more suitable conversational prosody compared to baseline models. Code and audio samples are available at
+						<a href="https://github.com/Coder-jzq/ICASSP2025-IIICSS"><span  style="color: #1d5da4; ">https://github.com/Coder-jzq/ICASSP2025-IIICSS</span></a>.
+						
+					</div>
+				</div>
+				
+				<div class="section">
+					<div class="section-title">MODEL ARCHITECTURE</div>
+					<div class="section-content model">
+						<img src="./img/Fig-png.png" alt="" class="model-img">
+					</div>
+				</div>
+				
+				<div class="section">
+					<div class="section-title">EXPERIMENTS</div>
+					<div class="section-content experiments">
+						<!-- We develop four neural TTS systems for a  -->
+						<strong>Comparative Experiment:</strong>
+						</br> 1) <b>DailyTalk</b> is an advanced CTTS baseline. It proposes coarse-grained text context modeling in dialogue history to enhance speech expressiveness.
+						</br> 2) <b>M²-CTTS</b> designs a textual context module and an acoustic context module with both coarse-grained and fine-grained modeling, generating speech with better prosody and naturalness.
+						</br> 3) <b>CONCSS</b> incorporates a contrastive learning module to ensure the discriminability of contextual features during dialogue history modeling.
+						</br> 4) <b>Homogeneous Graph-based CSS</b> adopts the homogeneous graph to model the multi-modal context in conversation, inferring both the global and local speaking styles of the current utterance.
+						</br> 5) <b>ECSS</b> is an emotional expressive conversational speech synthesis model. It constructs multi-source knowledge into a heterogeneous graph and incorporates an emotion prediction task to synthesize emotionally expressive speech.
+						</br></br><strong>Ablation Experiment:</strong>
+						</br> <b>Abl.Exp.1</b> represents the removal of all intra-modal and inter-modal interaction modules.
+						</br> <span style="color: #939393">(Abl.Exp.2 to Abl.Exp.9 represents different combinations of HT-NT, HA-NA, HT-NA, and HA-NT)</span>
+						</br> <b>Abl.Exp.2</b> represents I³-CSS with only HT-NT. 
+						</br> <b>Abl.Exp.3</b> represents I³-CSS with only HA-NA. 
+						</br> <b>Abl.Exp.4</b> represents I³-CSS with only HT-NA. 
+						</br> <b>Abl.Exp.5</b> represents I³-CSS with only HA-NT. 
+						</br> <b>Abl.Exp.6</b> represents I³-CSS with both HT-NT and HA-NA. 
+						</br> <b>Abl.Exp.7</b> represents I³-CSS with both HT-NA and HA-NT. 
+						</br> <b>Abl.Exp.8</b> represents I³-CSS with both HT-NT and HT-NA. 
+						</br> <b>Abl.Exp.9</b> represents I³-CSS with both HA-NA and HA-NT.
+						</br> <b>Abl.Exp.10</b> represents I³-CSS without the interaction enhancement (RE) mechanism.
+					</div>
+					<div class="section-content ">
+						<hr />
+						<div class="subsection-exp-2">
+							
+							<!-- 一句话分割 -->
+							<div class="module-content">
+								<span class="note">In my book, all a good movie needs is a chase scene and lots of things that blow up.</span>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=10%></col>
+										   <col width=25%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">1<sup>th</sup></td>
+											<td style="text-align: center">I suppose you like cinematography and costumes and that sort of stuff?</td>
+											<td style="text-align: center"><audio src="./audio/history/263/0_1_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">2<sup>th</sup></td>
+											<td style="text-align: center">Yes, I do. The look of a picture is very important.</td>
+											<td style="text-align: center"><audio src="./audio/history/263/1_0_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">3<sup>th</sup></td>
+											<td style="text-align: center">Umm I think sound is even more important! Guns, bombs, sirens--that's what makes a movie exciting!</td>
+											<td style="text-align: center"><audio src="./audio/history/263/2_1_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">4<sup>th</sup></td>
+											<td style="text-align: center">You wouldn't know a good movie even if it bit you on the nose.</td>
+											<td style="text-align: center"><audio src="./audio/history/263/3_0_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="module-content">
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
+										</tr>
+									</thead>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=15%></col>
+										   <col width=25%></col>
+										   <!-- <col width=20%></col> -->
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>current</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+										  <!-- <th colspan="1" style="text-align: center"><strong>Reconstruction</strong></th> -->
+										  <th colspan="1" style="text-align: center"><strong>DailyTalk</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>M2CTTS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>CONCSS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Homogeneous Graph-based CSS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
+										  <th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">I³-CSS</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">5<sup>th</sup></td>
+											<td style="text-align: center">In my book, all a good movie needs is a chase scene and lots of things that blow up.</td>
+											<!-- <td style="text-align: center"><audio src="./audio/wav_reconstruction/4_1_d263.wav" controls="" preload=""></audio></td> -->
+											<td style="text-align: center"><audio src="./audio/DailyTalk/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/M2CTTS/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/CONCSS/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/GCN-based/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ECSS/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ours/4_1_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Ablation</strong></th>
+										</tr>
+									</thead>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.1</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.2</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.3</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.4</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.5</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.6</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.7</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.8</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.9</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.10</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center"><audio src="./audio/fs2/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NT/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NA/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NA/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NT/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/intra_A_T/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/cross_A_T/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/text_intra_cross/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/audio_intra_cross/4_1_d263.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/wo_enhance/4_1_d263.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							<!-- 一句话分割 -->
+							<div class="module-content">
+								<span class="note">No, I don't often dance. Isn't this a wonderful party?</span>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=10%></col>
+										   <col width=25%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">1<sup>th</sup></td>
+											<td style="text-align: center">Umm excuse me, miss. I'm Bob.</td>
+											<td style="text-align: center"><audio src="./audio/history/422/0_0_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">2<sup>th</sup></td>
+											<td style="text-align: center">I'm Amy. How do you do?</td>
+											<td style="text-align: center"><audio src="./audio/history/422/1_1_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">3<sup>th</sup></td>
+											<td style="text-align: center">I'm very glad to meet you. May I have this dance with you?</td>
+											<td style="text-align: center"><audio src="./audio/history/422/2_0_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">4<sup>th</sup></td>
+											<td style="text-align: center">Certainly! I suppose you dance often.</td>
+											<td style="text-align: center"><audio src="./audio/history/422/3_1_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="module-content">
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
+										</tr>
+									</thead>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=15%></col>
+										   <col width=25%></col>
+										   <!-- <col width=20%></col> -->
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+											<th colspan="1" style="text-align: center"><strong>current</strong></th>
+											<th colspan="1" style="text-align: center"><strong>text</strong></th>
+											<!-- <th colspan="1" style="text-align: center"><strong>Reconstruction</strong></th> -->
+											<th colspan="1" style="text-align: center"><strong>DailyTalk</strong></th>
+											<th colspan="1" style="text-align: center"><strong>M2CTTS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>CONCSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>Homogeneous Graph-based CSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">I³-CSS</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">3<sup>th</sup></td>
+											<td style="text-align: center">No, I don't often dance. Isn't this a wonderful party?</td>
+											<!-- <td style="text-align: center"><audio src="./audio/wav_reconstruction/4_0_d422.wav" controls="" preload=""></audio></td> -->
+											<td style="text-align: center"><audio src="./audio/DailyTalk/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/M2CTTS/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/CONCSS/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/GCN-based/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ECSS/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ours/4_0_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+									
+									</tbody>
+								</table>
+								
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Ablation</strong></th>
+										</tr>
+									</thead>
+								</table>
+								
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.1</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.2</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.3</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.4</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.5</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.6</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.7</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.8</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.9</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.10</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center"><audio src="./audio/fs2/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NT/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NA/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NA/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NT/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/intra_A_T/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/cross_A_T/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/text_intra_cross/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/audio_intra_cross/4_0_d422.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/wo_enhance/4_0_d422.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 一句话分割 -->
+							
+							
+							<!-- 一句话分割 -->
+							<div class="module-content">
+								<span class="note">I'm going to take more pictures today.</span>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=10%></col>
+										   <col width=25%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Conversation history</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>text</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>speech</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">1<sup>th</sup></td>
+											<td style="text-align: center">Lucy, come here! I can see the lake which is in the center of park.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/0_0_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">2<sup>th</sup></td>
+											<td style="text-align: center">It is beautiful! Look, there are so many birds around it.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/1_1_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">3<sup>th</sup></td>
+											<td style="text-align: center">It is a great place for a relaxing vacation.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/2_0_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">4<sup>th</sup></td>
+											<td style="text-align: center">Listen to the sound of nature! It's like music.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/3_1_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">5<sup>th</sup></td>
+											<td style="text-align: center">Yeah, I agree. It makes you feel really good.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/4_0_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">6<sup>th</sup></td>
+											<td style="text-align: center">What are those?</td>
+											<td style="text-align: center"><audio src="./audio/history/693/5_1_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+										<tr>
+											<td style="text-align: center">7<sup>th</sup></td>
+											<td style="text-align: center">Do you mean the red things? They are roses.</td>
+											<td style="text-align: center"><audio src="./audio/history/693/6_0_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="module-content">
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Comparative</strong></th>
+										</tr>
+									</thead>
+								</table>
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=15%></col>
+										   <col width=25%></col>
+										   <!-- <col width=20%></col> -->
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+											<th colspan="1" style="text-align: center"><strong>current</strong></th>
+											<th colspan="1" style="text-align: center"><strong>text</strong></th>
+											<!-- <th colspan="1" style="text-align: center"><strong>Reconstruction</strong></th> -->
+											<th colspan="1" style="text-align: center"><strong>DailyTalk</strong></th>
+											<th colspan="1" style="text-align: center"><strong>M2CTTS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>CONCSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>Homogeneous Graph-based CSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong>ECSS</strong></th>
+											<th colspan="1" style="text-align: center"><strong style="color: #1d5da4;">I³-CSS</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center">8<sup>th</sup></td>
+											<td style="text-align: center">I'm going to take more pictures today.</td>
+											<!-- <td style="text-align: center"><audio src="./audio/wav_reconstruction/7_1_d693.wav" controls="" preload=""></audio></td> -->
+											<td style="text-align: center"><audio src="./audio/DailyTalk/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/M2CTTS/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/CONCSS/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/GCN-based/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ECSS/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/ours/7_1_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+									
+									</tbody>
+								</table>
+								
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Ablation</strong></th>
+										</tr>
+									</thead>
+								</table>
+								
+								<table id="table_4">
+									<thead>
+										<colgroup>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										   <col width=20%></col>
+										</colgroup>
+										<tr>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.1</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.2</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.3</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.4</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.5</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.6</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.7</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.8</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.9</strong></th>
+										  <th colspan="1" style="text-align: center"><strong>Abl.Exp.10</strong></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align: center"><audio src="./audio/fs2/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NT/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NA/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MT2NA/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/MA2NT/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/intra_A_T/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/cross_A_T/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/text_intra_cross/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/audio_intra_cross/7_1_d693.wav" controls="" preload=""></audio></td>
+											<td style="text-align: center"><audio src="./audio/wo_enhance/7_1_d693.wav" controls="" preload=""></audio></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 一句话分割 -->
+							
+						</div>
+						<hr />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</body>
+</html>
