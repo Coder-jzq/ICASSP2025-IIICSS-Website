@@ -21,16 +21,16 @@
 				<div class="section">
 					<div class="section-title">ABSTRACT</div>
 					<div class="section-content abstract">
-						Conversational Speech Synthesis (CSS) aims to effectively use dialogue history to infer and generate speech with appropriate conversational prosody. Multimodal dialogue history (MDH) includes text and audio modalities. Previous CSS work typically models the entire MDH implicitly to obtain conversational prosody. However, modeling the intra-modal and inter-modal interactions in MDH can more effectively capture subtle semantic and prosodic variations, enabling more accurate inference of the target utterance's conversational prosody. Previous work ignores this point. Therefore, we propose a novel Intra-modal and Inter-modal Context Interaction Modeling CSS model, termed I³-CSS, which includes: 1) Intra-Modal and Inter-Modal Interaction Modules: Using a contrastive learning-based interaction enhancement method to model intra-modal and inter-modal interactions within MDH to infer the semantic and prosodic of the target utterance. 2) Speech Synthesizer: Integrates the inferred semantics and prosody to generate speech with appropriate conversational prosody. Experiments show that I³-CSS can synthesize more suitable conversational prosody compared to baseline models. Code and audio samples are available at
-						<a href="https://github.com/Coder-jzq/ICASSP2025-IIICSS"><span  style="color: #1d5da4; ">https://github.com/Coder-jzq/ICASSP2025-IIICSS</span></a>.
 						
+						Conversational Speech Synthesis (CSS) aims to effectively take the multimodal dialogue history (MDH) to generate speech with appropriate conversational prosody for target utterance. The key challenge of CSS is to model the interaction between the MDH and the target utterance. Note that text and speech modalities in MDH have their own unique influences, and they complement each other to produce a comprehensive impact on the target utterance. Previous works did not explicitly model such intra-modal and inter-modal interactions. To address this issue, we propose a new intra-modal and inter-modal context interaction scheme based CSS system, termed I³-CSS. Specifically, in the training phase, we combine the MDH with the text and speech modalities in the target utterance to obtain four modal combinations, including Historical Text-Next Text, Historical Speech-Next Speech, Historical Text-Next Speech and Historical Speech-Next Text. Then, we design two contrastive learning based intra-modal and two inter-modal interaction modules to deeply learn the intra-modal and inter-modal context interaction. In the inference phase, we take MDH and adopt trained interaction modules to fully reason about the speech prosody of the target utterance's text content. Subjective and Objective experiments on the DailyTalk dataset show that I³-CSS  outpeforms the advanced baselines in terms of speech expressiveness.
+						Code and speech samples are available at <a href="https://github.com/Coder-jzq/ICASSP2025-IIICSS"><span  style="color: #1d5da4; ">https://github.com/Coder-jzq/ICASSP2025-IIICSS</span></a>.
 					</div>
 				</div>
 				
 				<div class="section">
 					<div class="section-title">MODEL ARCHITECTURE</div>
 					<div class="section-content model">
-						<img src="./img/ICASSP2025-model.png" alt="" class="model-img">
+						<img src="./img/ICASSP2025-IIICSS.png" alt="" class="model-img">
 						
 						<p style="padding-top: 1rem; color: #a1a1a1; font-size: 1rem; text-align: center;">Figure: The overview of I³-CSS consists of Intra-Modal Interaction Module, Inter-Modal Interaction Module, Text Encoder, and Speech Synthesizer.</p>
 					</div>
