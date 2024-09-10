@@ -21,11 +21,7 @@
 				<div class="section">
 					<div class="section-title">ABSTRACT</div>
 					<div class="section-content abstract">
-						Conversational Speech Synthesis (CSS) aims to effectively take the multimodal dialogue history (MDH) to generate speech with appropriate conversational prosody for target utterance. The key challenge of CSS is to model the interaction between the MDH and the target utterance. Note that text and speech modalities in MDH have their own unique influences, and they complement each other to produce a comprehensive impact on the target utterance. 
-						Previous works did not explicitly model such intra-modal and inter-modal interactions.
-						To address this issue, we propose a new intra-modal and inter-modal context interaction scheme-based CSS system, termed I³-CSS. 
-						Specifically, in the training phase, we combine the MDH with the text and speech modalities in the target utterance to obtain four modal combinations, including Historical Text-Next Text, Historical Speech-Next Speech, Historical Text-Next Speech, and Historical Speech-Next Text. Then, we design two contrastive learning-based intra-modal and two inter-modal interaction modules to deeply learn the intra-modal and inter-modal context interaction. In the inference phase, we take MDH and adopt trained interaction modules to fully reason about the speech prosody of the target utterance's text content.
-						Subjective and Objective experiments on the DailyTalk dataset show that I³-CSS outperforms the advanced baselines in terms of speech expressiveness.
+						Conversational Speech Synthesis (CSS) aims to effectively take the multimodal dialogue history (MDH) to generate speech with appropriate conversational prosody for target utterance. The key challenge of CSS is to model the interaction between the MDH and the target utterance. Note that text and speech modalities in MDH have their own unique influences, and they complement each other to produce a comprehensive impact on the target utterance.  Previous works did not explicitly model such intra-modal and inter-modal interactions. To address this issue, we propose a new intra-modal and inter-modal context interaction scheme-based CSS system, termed I³-CSS.  Specifically, in the training phase, we combine the MDH with the text and speech modalities in the target utterance to obtain four modal combinations, including Historical Text-Next Text, Historical Speech-Next Speech, Historical Text-Next Speech, and Historical Speech-Next Text. Then, we design two contrastive learning-based intra-modal and two inter-modal interaction modules to deeply learn the intra-modal and inter-modal context interaction. In the inference phase, we take MDH and adopt trained interaction modules to fully infer the speech prosody of the target utterance's text content. Subjective and Objective experiments on the DailyTalk dataset show that I³-CSS outperforms the advanced baselines in terms of prosody expressiveness. 
 						Code and speech samples are available at <a href="https://github.com/Coder-jzq/ICASSP2025-IIICSS"><span  style="color: #1d5da4; ">https://github.com/Coder-jzq/ICASSP2025-IIICSS</span></a>.
 					</div>
 				</div>
@@ -44,11 +40,11 @@
 					<div class="section-content experiments">
 						<!-- We develop four neural TTS systems for a  -->
 						<strong>Comparative Experiment:</strong>
-						</br> 1) <b>DailyTalk</b> is an advanced CTTS baseline. It proposes coarse-grained text context modeling in dialogue history to enhance speech expressiveness.
-						</br> 2) <b>M²-CTTS</b> designs a textual context module and an acoustic context module with both coarse-grained and fine-grained modeling, generating speech with better prosody and naturalness.
-						</br> 3) <b>CONCSS</b> incorporates a contrastive learning module to ensure the discriminability of contextual features during dialogue history modeling.
-						</br> 4) <b>Homogeneous Graph-based CSS</b> adopts the homogeneous graph to model the multi-modal context in conversation, inferring both the global and local speaking styles of the current utterance.
-						</br> 5) <b>ECSS</b> is an emotional expressive conversational speech synthesis model. It constructs multi-source knowledge into a heterogeneous graph and incorporates an emotion prediction task to synthesize emotionally expressive speech.
+						</br> 1) <b>DailyTalk</b> models the independent dialogue history through a coarse-grained context encoder to enhance speech expressiveness.
+						</br> 2) <b>M²-CTTS</b> designs a multimodal, multiscale context encoder to model independent MDH to generate speech with appropriate prosody.
+						</br> 3) <b>CONCSS</b> increases the discriminability of independent MDH context through contrastive learning.
+						</br> 4) <b>Homogeneous Graph-based CSS</b> uses a homogeneous graph to model independent MDH, inferring speaking styles of the target utterance.
+						</br> 5) <b>ECSS</b> constructs a heterogeneous graph of the target utterance and MDH's multi-source knowledge to predict emotions and synthesize emotionally expressive speech.
 						</br></br><strong>Ablation Experiment:</strong>
 						</br> <b>Abl.Exp.1</b> represents the removal of all intra-modal and inter-modal interaction modules.
 						</br> <span style="color: #939393">(Abl.Exp.2 to Abl.Exp.9 represents different combinations of HT-NT, HS-NS, HT-NS, and HS-NT)</span>
